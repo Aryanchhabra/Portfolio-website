@@ -12,10 +12,9 @@ export default function ContactDimension() {
   const [hoveredSocial, setHoveredSocial] = useState(null)
 
   const socials = [
-    { name: 'GitHub', link: 'https://github.com/aryanchhabra' },
-    { name: 'LinkedIn', link: 'https://linkedin.com/in/aryanchhabraai' },
     { name: 'Email', link: 'mailto:aryanchhabra13.ac@gmail.com' },
-    { name: 'Resume', link: '#' }
+    { name: 'LinkedIn', link: 'https://linkedin.com/in/aryanchhabraai' },
+    { name: 'GitHub', link: 'https://github.com/aryanchhabra' }
   ]
 
   const handleSubmit = (e) => {

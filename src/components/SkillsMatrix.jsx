@@ -1,68 +1,72 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-const skills = [
-  { name: "Python", category: "Language" },
-  { name: "SQL", category: "Database" },
-  { name: "Machine Learning", category: "AI/ML" },
-  { name: "React", category: "Frontend" },
-  { name: "Pandas & NumPy", category: "Data Science" },
-  { name: "Power BI", category: "Analytics" },
-  { name: "Streamlit", category: "Framework" },
-  { name: "Data Analytics", category: "Analytics" },
-  { name: "scikit-learn", category: "AI/ML" },
-  { name: "Git & GitHub", category: "DevOps" },
-  { name: "TensorFlow", category: "AI/ML" },
-  { name: "API Development", category: "Backend" }
+const skillCategories = [
+  {
+    title: "Languages",
+    skills: ["Python", "SQL", "JavaScript", "R"]
+  },
+  {
+    title: "AI & Machine Learning",
+    skills: ["Machine Learning", "TensorFlow", "scikit-learn", "AI Agents", "LLMs", "Deep Learning"]
+  },
+  {
+    title: "Data Science & Analytics",
+    skills: ["Pandas", "NumPy", "Plotly", "Power BI", "Data Visualization", "Statistical Analysis"]
+  },
+  {
+    title: "Web & Frameworks",
+    skills: ["React", "Streamlit", "Flask", "Vite", "Tailwind CSS", "API Development"]
+  },
+  {
+    title: "AI Development Tools",
+    skills: ["Cursor AI", "Vibe Coding", "Lovable", "n8n", "LangChain"]
+  },
+  {
+    title: "Version Control & Collaboration",
+    skills: ["Git", "GitHub", "Version Control"]
+  }
 ]
 
-function SkillCard({ skill, index }) {
-  const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true })
+function CategorySection({ category, index }) {
+  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true })
 
   return (
     <motion.div
       ref={ref}
-      className="group relative"
-      initial={{ opacity: 0, y: 20 }}
+      className="mb-10"
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.03, duration: 0.4, ease: "easeOut" }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
     >
-      <motion.div
-        className="relative h-32 px-6 py-5 rounded-2xl bg-white border-2 border-gray-200 overflow-hidden shadow-[0_2px_10px_rgb(0,0,0,0.04)] transition-all duration-300"
-        whileHover={{ 
-          y: -4, 
-          borderColor: "#000",
-          boxShadow: "0 8px 30px rgb(0,0,0,0.1)"
-        }}
-      >
-        {/* Monogram Icon - First letter in geometric shape */}
-        <div className="absolute top-4 right-4 w-10 h-10 rounded-lg bg-black flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span className="text-white font-bold text-lg">{skill.name.charAt(0)}</span>
-        </div>
-
-        {/* Content */}
-        <div className="relative h-full flex flex-col justify-between">
-          {/* Category tag */}
-          <div className="inline-flex">
-            <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-              {skill.category}
-            </span>
-          </div>
-          
-          {/* Skill name */}
-          <h3 className="text-xl font-bold text-black leading-tight pr-12">
-            {skill.name}
-          </h3>
-        </div>
-
-        {/* Hover accent line */}
-        <motion.div
-          className="absolute bottom-0 left-0 h-1 bg-black"
-          initial={{ width: 0 }}
-          whileHover={{ width: "100%" }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
+      {/* Category Title */}
+      <h3 className="text-xl sm:text-2xl font-bold text-black mb-4 flex items-center gap-3">
+        <span className="w-2 h-2 rounded-full bg-black"></span>
+        {category.title}
+      </h3>
+      
+      {/* Skills Grid */}
+      <div className="flex flex-wrap gap-3">
+        {category.skills.map((skill, skillIndex) => (
+          <motion.div
+            key={skill}
+            className="group relative"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: index * 0.1 + skillIndex * 0.05, duration: 0.3 }}
+          >
+            <motion.div
+              className="px-5 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-black transition-all duration-300 shadow-sm hover:shadow-md"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span className="text-sm sm:text-base font-medium text-gray-800 group-hover:text-black transition-colors">
+                {skill}
+              </span>
+            </motion.div>
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   )
 }
@@ -72,7 +76,7 @@ export default function SkillsMatrix() {
 
   return (
     <section ref={ref} className="relative min-h-screen px-4 sm:px-6 py-16 sm:py-20">
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
@@ -81,19 +85,19 @@ export default function SkillsMatrix() {
           transition={{ duration: 0.6 }}
         >
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-black px-4"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-black"
           >
             Technical Skills
           </motion.h2>
-          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-            Tools and technologies I use to build intelligent solutions
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            A comprehensive toolkit for building intelligent, data-driven solutions
           </p>
         </motion.div>
 
-        {/* Skills Grid - Optimized and Responsive */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 max-w-6xl mx-auto">
-          {skills.map((skill, index) => (
-            <SkillCard key={skill.name} skill={skill} index={index} />
+        {/* Skills by Category */}
+        <div className="space-y-8 sm:space-y-10">
+          {skillCategories.map((category, index) => (
+            <CategorySection key={category.title} category={category} index={index} />
           ))}
         </div>
 
@@ -102,12 +106,12 @@ export default function SkillsMatrix() {
           className="text-center mt-12 sm:mt-16"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.8 }}
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border-2 border-black/10">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-black/5 border-2 border-black/10">
             <div className="w-2 h-2 rounded-full bg-black animate-pulse" />
-            <p className="text-gray-700 text-sm sm:text-base font-medium">
-              Continuously expanding my toolkit
+            <p className="text-gray-800 text-sm sm:text-base font-medium">
+              Always exploring new tools and technologies
             </p>
           </div>
         </motion.div>

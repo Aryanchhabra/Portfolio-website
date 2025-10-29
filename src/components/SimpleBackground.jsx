@@ -1,90 +1,94 @@
-// Optimized abstract background - performance focused
+// Optimized abstract background with wavy lines
 import { motion } from 'framer-motion'
 
 export default function SimpleBackground() {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {/* Premium gradient base */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-slate-50" />
+      {/* Clean white base */}
+      <div className="absolute inset-0 bg-white" />
       
-      {/* Static refined grid pattern - no animation for better performance */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `
-          linear-gradient(to right, #94a3b8 1px, transparent 1px),
-          linear-gradient(to bottom, #94a3b8 1px, transparent 1px)
-        `,
-        backgroundSize: '80px 80px'
-      }} />
-      
-      {/* Reduced diagonal lines - only 4 instead of 12 */}
-      {[...Array(4)].map((_, i) => (
-        <motion.div
-          key={`diag-${i}`}
-          className="absolute h-full origin-top will-change-transform"
-          style={{ 
-            left: `${15 + i * 20}%`,
-            width: '1.5px',
-            transform: `rotate(${-15 + i * 10}deg)`,
-            transformOrigin: 'top',
-            background: `linear-gradient(to bottom, transparent, #cbd5e1, transparent)`,
-            opacity: 0.12
-          }}
-          animate={{
-            opacity: [0.08, 0.15, 0.08]
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 15,
-            ease: "easeInOut",
-            delay: i * 2
-          }}
+      {/* Wavy lines - Abstract art style */}
+      <svg className="absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#94a3b8" stopOpacity="0" />
+            <stop offset="50%" stopColor="#94a3b8" stopOpacity="1" />
+            <stop offset="100%" stopColor="#94a3b8" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="waveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#cbd5e1" stopOpacity="0" />
+            <stop offset="50%" stopColor="#cbd5e1" stopOpacity="1" />
+            <stop offset="100%" stopColor="#cbd5e1" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        
+        {/* Wave paths */}
+        <motion.path
+          d="M0,100 Q250,50 500,100 T1000,100 L1000,102 Q750,52 500,102 T0,102 Z"
+          fill="url(#waveGrad1)"
+          animate={{ d: [
+            "M0,100 Q250,50 500,100 T1000,100 L1000,102 Q750,52 500,102 T0,102 Z",
+            "M0,100 Q250,150 500,100 T1000,100 L1000,102 Q750,148 500,102 T0,102 Z",
+            "M0,100 Q250,50 500,100 T1000,100 L1000,102 Q750,52 500,102 T0,102 Z"
+          ]}}
+          transition={{ repeat: Infinity, duration: 20, ease: "easeInOut" }}
         />
-      ))}
-      
-      {/* Reduced horizontal lines - only 3 instead of 8 */}
-      {[...Array(3)].map((_, i) => (
-        <motion.div
-          key={`horiz-${i}`}
-          className="absolute w-full will-change-transform"
-          style={{ 
-            top: `${20 + i * 30}%`, 
-            height: '1.5px',
-            background: `linear-gradient(to right, transparent, #cbd5e1, transparent)`,
-            opacity: 0.1
-          }}
-          animate={{
-            opacity: [0.06, 0.14, 0.06]
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 18,
-            ease: "easeInOut",
-            delay: i * 3
-          }}
+        
+        <motion.path
+          d="M0,300 Q300,250 600,300 T1200,300 L1200,302 Q900,248 600,302 T0,302 Z"
+          fill="url(#waveGrad2)"
+          animate={{ d: [
+            "M0,300 Q300,250 600,300 T1200,300 L1200,302 Q900,248 600,302 T0,302 Z",
+            "M0,300 Q300,350 600,300 T1200,300 L1200,302 Q900,352 600,302 T0,302 Z",
+            "M0,300 Q300,250 600,300 T1200,300 L1200,302 Q900,248 600,302 T0,302 Z"
+          ]}}
+          transition={{ repeat: Infinity, duration: 25, ease: "easeInOut", delay: 2 }}
         />
-      ))}
+        
+        <motion.path
+          d="M0,500 Q200,450 400,500 T800,500 L800,502 Q600,448 400,502 T0,502 Z"
+          fill="url(#waveGrad1)"
+          animate={{ d: [
+            "M0,500 Q200,450 400,500 T800,500 L800,502 Q600,448 400,502 T0,502 Z",
+            "M0,500 Q200,550 400,500 T800,500 L800,502 Q600,548 400,502 T0,502 Z",
+            "M0,500 Q200,450 400,500 T800,500 L800,502 Q600,448 400,502 T0,502 Z"
+          ]}}
+          transition={{ repeat: Infinity, duration: 30, ease: "easeInOut", delay: 4 }}
+        />
+        
+        <motion.path
+          d="M0,700 Q350,650 700,700 T1400,700 L1400,702 Q1050,648 700,702 T0,702 Z"
+          fill="url(#waveGrad2)"
+          animate={{ d: [
+            "M0,700 Q350,650 700,700 T1400,700 L1400,702 Q1050,648 700,702 T0,702 Z",
+            "M0,700 Q350,750 700,700 T1400,700 L1400,702 Q1050,752 700,702 T0,702 Z",
+            "M0,700 Q350,650 700,700 T1400,700 L1400,702 Q1050,648 700,702 T0,702 Z"
+          ]}}
+          transition={{ repeat: Infinity, duration: 22, ease: "easeInOut", delay: 1 }}
+        />
+      </svg>
       
-      {/* Reduced orbs - only 2 instead of 5 */}
+      {/* Subtle floating gradient orbs for depth */}
       {[...Array(2)].map((_, i) => (
         <motion.div
           key={`orb-${i}`}
           className="absolute rounded-full blur-3xl will-change-transform"
           style={{
-            width: '200px',
-            height: '200px',
-            top: i === 0 ? '20%' : '60%',
-            left: i === 0 ? '10%' : '70%',
-            background: `radial-gradient(circle, rgba(148, 163, 184, 0.12), transparent)`
+            width: '250px',
+            height: '250px',
+            top: i === 0 ? '15%' : '65%',
+            left: i === 0 ? '5%' : '75%',
+            background: `radial-gradient(circle, rgba(148, 163, 184, 0.08), transparent)`
           }}
           animate={{
-            x: [0, 30, 0],
-            y: [0, -30, 0]
+            x: [0, 40, 0],
+            y: [0, -40, 0]
           }}
           transition={{
             repeat: Infinity,
-            duration: 20,
+            duration: 25,
             ease: "easeInOut",
-            delay: i * 5
+            delay: i * 6
           }}
         />
       ))}
