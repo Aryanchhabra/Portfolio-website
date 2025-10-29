@@ -65,14 +65,20 @@ export default function HeroSection() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.9, duration: 0.8 }}
           >
-            <button className="group relative px-8 py-4 bg-black rounded-full font-semibold text-white overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-black/30">
+            <a 
+              href="#projects"
+              className="group relative px-8 py-4 bg-black rounded-full font-semibold text-white overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-black/30 inline-block"
+            >
               <span className="relative z-10">Explore My Work</span>
               <div className="absolute inset-0 bg-gray-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </button>
+            </a>
             
-            <button className="px-8 py-4 border-2 border-black/30 rounded-full font-semibold text-gray-900 backdrop-blur-xl hover:bg-black/5 hover:border-black/50 transition-all duration-300 hover:scale-105">
+            <a
+              href="#contact"
+              className="px-8 py-4 border-2 border-black/30 rounded-full font-semibold text-gray-900 backdrop-blur-xl hover:bg-black/5 hover:border-black/50 transition-all duration-300 hover:scale-105 inline-block"
+            >
               Get In Touch
-            </button>
+            </a>
           </motion.div>
         </motion.div>
       </div>

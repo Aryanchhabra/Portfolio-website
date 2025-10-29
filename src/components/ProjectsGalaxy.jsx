@@ -118,7 +118,7 @@ export default function ProjectsGalaxy() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: false })
 
   return (
-    <section ref={ref} className="relative min-h-screen px-4 sm:px-6 py-16 sm:py-20">
+    <section id="projects" ref={ref} className="relative min-h-screen px-4 sm:px-6 py-16 sm:py-20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

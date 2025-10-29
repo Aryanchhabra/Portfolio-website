@@ -56,7 +56,7 @@ export default function ContactDimension() {
   }
 
   return (
-    <section ref={ref} className="relative min-h-screen px-6 py-20">
+    <section id="contact" ref={ref} className="relative min-h-screen px-6 py-20">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
