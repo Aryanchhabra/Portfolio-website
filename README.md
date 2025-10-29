@@ -4,13 +4,14 @@ A modern, responsive portfolio website showcasing my work as a Data Scientist an
 
 ## 🚀 Live Demo
 
-Visit the live site: [Coming Soon]
+Visit the live site: **[Your Vercel URL]** *(Add your custom Vercel URL here)*
 
 ## 💻 Built With
 
 - React + Vite
 - Tailwind CSS
 - Framer Motion
+- Web3Forms (Contact Form)
 
 ## 📱 Features
 
@@ -18,9 +19,12 @@ Visit the live site: [Coming Soon]
 - Smooth animations and transitions
 - Performance optimized
 - Modern UI/UX
+- Functional contact form with email notifications
+- Abstract wavy background design
+- Mobile-optimized navigation
 
 ## 📫 Contact
 
-- Email: [Your Email]
-- LinkedIn: [Your LinkedIn]
+- Email: aryanchhabra13.ac@gmail.com
+- LinkedIn: [linkedin.com/in/aryanchhabraai](https://linkedin.com/in/aryanchhabraai)
 - GitHub: [@Aryanchhabra](https://github.com/Aryanchhabra)
