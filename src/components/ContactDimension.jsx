@@ -206,13 +206,6 @@ export default function ContactDimension() {
                         <span>aryanchhabra13.ac@gmail.com</span>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3 text-gray-700">
-                      <div className="w-1 h-1 bg-black rounded-full mt-2"></div>
-                      <div>
-                        <div className="text-xs text-gray-500 mb-1">Phone</div>
-                        <span>+91 95794 85737</span>
-                      </div>
-                    </div>
                   </div>
             </div>
 
