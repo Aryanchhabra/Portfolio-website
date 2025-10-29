@@ -30,16 +30,16 @@ export default function AboutPortal() {
             animate={inView ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-[0_10px_40px_rgb(0,0,0,0.1)]">
-              <img 
-                src="/images/linkedinimage.jpeg" 
-                alt="Aryan Chhabra"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              {/* Subtle gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent" />
-            </div>
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-[0_10px_40px_rgb(0,0,0,0.1)]">
+                  <img 
+                    src="/linkedinimage.jpeg" 
+                    alt="Aryan Chhabra"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  {/* Subtle gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent" />
+                </div>
           </motion.div>
 
           {/* Right side - Content */}
