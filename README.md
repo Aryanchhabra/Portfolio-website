@@ -19,25 +19,8 @@ Visit the live site: [Coming Soon]
 - Performance optimized
 - Modern UI/UX
 
-## 🛠️ Local Development
-
-```bash
-# Install dependencies
-npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-```
-
 ## 📫 Contact
 
 - Email: [Your Email]
 - LinkedIn: [Your LinkedIn]
 - GitHub: [@Aryanchhabra](https://github.com/Aryanchhabra)
-
----
-
-© 2025 Aryan Chhabra. All rights reserved.
