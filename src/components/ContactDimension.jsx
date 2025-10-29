@@ -10,6 +10,7 @@ export default function ContactDimension() {
     message: ''
   })
   const [hoveredSocial, setHoveredSocial] = useState(null)
+  const [submitStatus, setSubmitStatus] = useState('') // 'success', 'error', or ''
 
   const socials = [
     { name: 'Email', link: 'mailto:aryanchhabra13.ac@gmail.com' },
@@ -17,10 +18,41 @@ export default function ContactDimension() {
     { name: 'GitHub', link: 'https://github.com/aryanchhabra' }
   ]
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    // Add your form submission logic here
+    setSubmitStatus('sending')
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // You'll replace this with your actual key
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Contact from ${formData.name}`
+        })
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmitStatus('success')
+        setFormData({ name: '', email: '', message: '' }) // Clear form
+        setTimeout(() => setSubmitStatus(''), 5000) // Clear success message after 5s
+      } else {
+        setSubmitStatus('error')
+        setTimeout(() => setSubmitStatus(''), 5000)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+      setTimeout(() => setSubmitStatus(''), 5000)
+    }
   }
 
   return (
@@ -97,18 +129,47 @@ export default function ContactDimension() {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-black text-white font-bold text-lg overflow-hidden relative group"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  disabled={submitStatus === 'sending'}
+                  className={`w-full py-4 rounded-xl font-bold text-lg overflow-hidden relative group transition-all ${
+                    submitStatus === 'sending' 
+                      ? 'bg-gray-400 cursor-not-allowed' 
+                      : 'bg-black hover:bg-gray-800'
+                  } text-white`}
+                  whileHover={submitStatus !== 'sending' ? { scale: 1.02 } : {}}
+                  whileTap={submitStatus !== 'sending' ? { scale: 0.98 } : {}}
                 >
-                  <span className="relative z-10">Send Message</span>
-                  <motion.div
-                    className="absolute inset-0 bg-gray-800"
-                    initial={{ x: '-100%' }}
-                    whileHover={{ x: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
+                  <span className="relative z-10">
+                    {submitStatus === 'sending' ? 'Sending...' : 'Send Message'}
+                  </span>
+                  {submitStatus !== 'sending' && (
+                    <motion.div
+                      className="absolute inset-0 bg-gray-800"
+                      initial={{ x: '-100%' }}
+                      whileHover={{ x: 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  )}
                 </motion.button>
+
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-center"
+                  >
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </motion.div>
+                )}
+                {submitStatus === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-center"
+                  >
+                    ❌ Oops! Something went wrong. Please try again or email me directly.
+                  </motion.div>
+                )}
               </form>
             </div>
           </motion.div>
