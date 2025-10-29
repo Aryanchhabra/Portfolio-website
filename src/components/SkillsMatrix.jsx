@@ -24,7 +24,7 @@ const skillCategories = [
   },
   {
     title: "Version Control & Collaboration",
-    skills: ["Git", "GitHub", "Version Control"]
+    skills: ["Git", "GitHub"]
   }
 ]
 

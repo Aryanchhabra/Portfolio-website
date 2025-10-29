@@ -158,28 +158,38 @@ export default function ContactDimension() {
             {/* Social Links */}
             <div className="p-8 rounded-2xl bg-white/95 backdrop-blur-xl border border-gray-200 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
               <h3 className="text-2xl font-bold text-black mb-6">Find Me Online</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="flex flex-col gap-4">
                 {socials.map((social, index) => (
                   <motion.a
                         key={social.name}
                         href={social.link}
-                        className="relative p-6 rounded-xl bg-white border border-gray-200 text-center overflow-hidden group shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={inView ? { opacity: 1, scale: 1 } : {}}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative p-5 rounded-xl bg-white border-2 border-gray-200 overflow-hidden group shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:border-black transition-colors"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ delay: 0.6 + index * 0.1 }}
-                        whileHover={{ scale: 1.05, y: -4, boxShadow: "0 12px 40px rgb(0,0,0,0.08)" }}
+                        whileHover={{ scale: 1.02, y: -2, boxShadow: "0 8px 30px rgb(0,0,0,0.08)" }}
                         onMouseEnter={() => setHoveredSocial(social.name)}
                         onMouseLeave={() => setHoveredSocial(null)}
                       >
-                        <div className="relative z-10">
-                          <div className="font-semibold text-black text-lg">
-                            {social.name}
+                        <div className="relative z-10 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="w-2 h-2 rounded-full bg-black"></div>
+                            <span className="font-semibold text-black text-lg">
+                              {social.name}
+                            </span>
                           </div>
                           <motion.div
-                            className="mt-2 w-8 h-0.5 bg-black mx-auto"
-                            animate={hoveredSocial === social.name ? { width: '100%' } : { width: '2rem' }}
-                            transition={{ duration: 0.3 }}
-                          />
+                            animate={{
+                              x: hoveredSocial === social.name ? 4 : 0
+                            }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </motion.div>
                         </div>
                   </motion.a>
                 ))}
