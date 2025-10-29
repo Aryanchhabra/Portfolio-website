@@ -4,7 +4,7 @@ A modern, responsive portfolio website showcasing my work as a Data Scientist an
 
 ## 🚀 Live Demo
 
-Visit the live site: **[Your Vercel URL]** *(Add your custom Vercel URL here)*
+Visit the live site: **[aryanchhabra.vercel.app](https://aryanchhabra.vercel.app/)**
 
 ## 💻 Built With
 
