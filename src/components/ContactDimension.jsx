@@ -30,7 +30,7 @@ export default function ContactDimension() {
           'Accept': 'application/json'
         },
         body: JSON.stringify({
-          access_key: 'YOUR_WEB3FORMS_ACCESS_KEY', // You'll replace this with your actual key
+          access_key: '5c15fc02-c742-48eb-abb9-3ffe8fd41fcd', // You'll replace this with your actual key
           name: formData.name,
           email: formData.email,
           message: formData.message,
