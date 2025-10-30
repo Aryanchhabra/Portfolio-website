@@ -76,23 +76,29 @@ export default function AboutPortal() {
               I believe great AI should feel human: adaptive, transparent, and built to create real impact.
             </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-5">
+            {/* Core Expertise */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               {[
-                { number: "15+", label: "Projects" },
-                { number: "8.3", label: "CGPA" },
-                { number: "2025", label: "Graduate" }
-              ].map((stat, i) => (
+                { icon: "🤖", area: "AI & Machine Learning", desc: "Building intelligent systems" },
+                { icon: "📊", area: "Data Science", desc: "Extracting insights from data" },
+                { icon: "⚡", area: "Full Stack Dev", desc: "End-to-end solutions" }
+              ].map((item, i) => (
                 <motion.div
                   key={i}
-                  className="bg-white rounded-xl sm:rounded-2xl border border-gray-200 p-3 sm:p-4 md:p-6 text-center shadow-[0_4px_20px_rgb(0,0,0,0.04)]"
-                  whileHover={{ y: -2, boxShadow: "0 8px 30px rgb(0,0,0,0.08)" }}
-                  transition={{ duration: 0.2 }}
+                  className="relative bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 p-4 sm:p-5 shadow-[0_4px_20px_rgb(0,0,0,0.04)] overflow-hidden group"
+                  whileHover={{ y: -4, boxShadow: "0 12px 40px rgb(0,0,0,0.1)" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
-                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black mb-1 sm:mb-2">
-                    {stat.number}
+                  {/* Hover effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="relative z-10">
+                    <div className="text-3xl mb-2">{item.icon}</div>
+                    <div className="text-base sm:text-lg font-bold text-black mb-1">
+                      {item.area}
+                    </div>
+                    <div className="text-xs sm:text-sm text-gray-600">{item.desc}</div>
                   </div>
-                  <div className="text-xs sm:text-sm font-medium text-gray-600">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
