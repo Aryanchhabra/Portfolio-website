@@ -54,26 +54,26 @@ export default function AboutPortal() {
             </h2>
 
             <p className="text-base sm:text-lg text-gray-800 mb-4 sm:mb-6 leading-relaxed font-medium">
-              I'm Aryan Chhabra, an AI & Data Science engineer passionate about transforming ideas 
-              into intelligent systems. My work lies at the crossroads of data, learning, and 
-              design—building tools that help people make smarter decisions.
+              I'm Aryan Chhabra, an AI & Data Science engineer passionate about building intelligent 
+              systems that solve real problems. I work at the intersection of data, machine learning, 
+              and user experience to create tools that make decision-making smarter and more intuitive.
             </p>
 
             <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-              I've worked on projects ranging from adaptive testing platforms to fraud detection models, 
-              where I've explored how data can not only predict outcomes but also personalize experiences. 
-              I enjoy creating seamless, intelligent interfaces using Python, Streamlit, and React—where 
-              data meets interaction.
+              My projects span from adaptive testing platforms to fraud detection models and AI research 
+              systems. I love working with Python, building interactive dashboards with Streamlit, and 
+              creating modern web experiences with React. Each project teaches me something new about 
+              how data and design can work together seamlessly.
             </p>
 
             <p className="text-sm sm:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-              My curiosity drives me to keep experimenting, learning, and building. When I'm not coding, 
-              I'm probably sketching new app concepts, reading about emerging AI models, or brainstorming 
-              business ideas.
+              I'm constantly learning and experimenting with new technologies. When I'm not coding, 
+              you'll find me sketching app concepts, diving into research papers, or thinking about 
+              the next big idea I want to build.
             </p>
 
             <p className="text-sm sm:text-base text-gray-800 font-semibold leading-relaxed mb-8">
-              I believe in using AI to create solutions that feel human—adaptive, transparent, and impactful.
+              I believe great AI should feel human: adaptive, transparent, and built to create real impact.
             </p>
 
             {/* Stats */}
