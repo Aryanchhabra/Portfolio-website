@@ -77,29 +77,26 @@ export default function AboutPortal() {
               I believe great AI should feel human: adaptive, transparent, and built to create real impact.
             </p>
 
-            {/* Core Expertise */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+            {/* Focus Areas - Minimalist */}
+            <div className="space-y-3 sm:space-y-4">
               {[
-                { icon: "🤖", area: "AI & Machine Learning", desc: "Building intelligent systems" },
-                { icon: "📊", area: "Data Science", desc: "Extracting insights from data" },
-                { icon: "⚡", area: "Full Stack Dev", desc: "End-to-end solutions" }
-              ].map((item, i) => (
+                "Machine Learning & AI Development",
+                "Data Analysis & Visualization", 
+                "Full Stack Web Applications",
+                "Predictive Modeling & Analytics"
+              ].map((area, i) => (
                 <motion.div
                   key={i}
-                  className="relative bg-gradient-to-br from-white to-gray-50 rounded-xl border border-gray-200 p-4 sm:p-5 shadow-[0_4px_20px_rgb(0,0,0,0.04)] overflow-hidden group"
-                  whileHover={{ y: -4, boxShadow: "0 12px 40px rgb(0,0,0,0.1)" }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="group flex items-center gap-3 sm:gap-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.6 + i * 0.1, duration: 0.4 }}
+                  whileHover={{ x: 4 }}
                 >
-                  {/* Hover effect background */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <div className="relative z-10">
-                    <div className="text-3xl mb-2">{item.icon}</div>
-                    <div className="text-base sm:text-lg font-bold text-black mb-1">
-                      {item.area}
-                    </div>
-                    <div className="text-xs sm:text-sm text-gray-600">{item.desc}</div>
-                  </div>
+                  <div className="w-1.5 h-1.5 rounded-full bg-black group-hover:scale-150 transition-transform duration-300" />
+                  <span className="text-sm sm:text-base font-medium text-gray-800 group-hover:text-black transition-colors">
+                    {area}
+                  </span>
                 </motion.div>
               ))}
             </div>
