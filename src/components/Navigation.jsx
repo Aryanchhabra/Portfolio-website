@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const sections = [
   { id: 'home', name: 'Home', icon: '🏠' },
@@ -12,6 +12,20 @@ const sections = [
 
 export default function Navigation({ currentSection }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [showLogo, setShowLogo] = useState(false)
+
+  // Show logo only when scrolled past hero section
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      // Show logo after scrolling 80% of viewport height
+      setShowLogo(scrollPosition > window.innerHeight * 0.8)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial check
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId)
@@ -130,22 +144,31 @@ export default function Navigation({ currentSection }) {
         </motion.div>
       </motion.div>
 
-      {/* Logo / Brand */}
+      {/* Logo / Brand - Simple "a" (only visible when scrolled) */}
       <motion.div
-        className="fixed top-6 left-6 z-50"
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.5 }}
+        className="fixed top-5 left-5 z-50"
+        initial={{ opacity: 0, scale: 0, y: -20 }}
+        animate={{ 
+          opacity: showLogo ? 1 : 0, 
+          scale: showLogo ? 1 : 0,
+          y: showLogo ? 0 : -20
+        }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+        style={{ pointerEvents: showLogo ? 'auto' : 'none' }}
       >
-        <motion.div
-          className="px-4 py-2 bg-white/80 backdrop-blur-xl border border-black/20 rounded-full cursor-pointer shadow-lg"
-          whileHover={{ scale: 1.05 }}
+        <motion.button
+          onClick={() => scrollToSection('home')}
+          className="w-11 h-11 bg-white rounded-full cursor-pointer flex items-center justify-center"
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
+          style={{
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.08)'
+          }}
         >
-          <span className="text-black font-bold text-lg">
-            Aryan Chhabra
+          <span className="text-black font-bold text-2xl">
+            a
           </span>
-        </motion.div>
+        </motion.button>
       </motion.div>
     </>
   )
