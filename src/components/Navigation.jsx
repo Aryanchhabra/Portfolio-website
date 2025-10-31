@@ -2,12 +2,12 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 const sections = [
-  { id: 'home', name: 'Home', icon: '🏠' },
-  { id: 'about', name: 'About', icon: '👋' },
-  { id: 'experience', name: 'Experience', icon: '💼' },
-  { id: 'projects', name: 'Projects', icon: '🚀' },
-  { id: 'skills', name: 'Skills', icon: '⚡' },
-  { id: 'contact', name: 'Contact', icon: '✉️' }
+  { id: 'home', name: 'Home' },
+  { id: 'about', name: 'About' },
+  { id: 'experience', name: 'Experience' },
+  { id: 'projects', name: 'Projects' },
+  { id: 'skills', name: 'Skills' },
+  { id: 'contact', name: 'Contact' }
 ]
 
 export default function Navigation({ currentSection }) {
@@ -91,52 +91,71 @@ export default function Navigation({ currentSection }) {
 
       {/* Mobile Navigation - Hamburger Menu */}
       <motion.div
-        className="fixed top-6 right-6 z-50 lg:hidden"
+        className="fixed top-5 right-5 z-50 lg:hidden"
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.5 }}
       >
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-12 h-12 rounded-full bg-black flex items-center justify-center shadow-lg text-white"
+          className="w-11 h-11 rounded-full bg-white flex items-center justify-center text-black"
           whileTap={{ scale: 0.9 }}
+          style={{
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.08)'
+          }}
         >
-          <motion.div
-            animate={isOpen ? { rotate: 90 } : { rotate: 0 }}
-            transition={{ duration: 0.3 }}
+          <svg 
+            width="20" 
+            height="20" 
+            viewBox="0 0 20 20" 
+            fill="none"
+            className="transition-transform duration-300"
+            style={{ transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)' }}
           >
-            {isOpen ? '✕' : '☰'}
-          </motion.div>
+            {isOpen ? (
+              // X icon
+              <>
+                <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </>
+            ) : (
+              // Hamburger icon
+              <>
+                <path d="M3 5H17M3 10H17M3 15H17" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+              </>
+            )}
+          </svg>
         </motion.button>
 
-        {/* Menu */}
+        {/* Menu - Minimalist Design */}
         <motion.div
-          className="absolute top-16 right-0 w-48 p-4 bg-white/95 backdrop-blur-xl border border-black/20 rounded-2xl overflow-hidden shadow-2xl"
-          initial={{ opacity: 0, scale: 0.8, y: -20 }}
+          className="absolute top-14 right-0 w-44 bg-white backdrop-blur-xl rounded-2xl overflow-hidden"
+          initial={{ opacity: 0, scale: 0.95, y: -10 }}
           animate={
             isOpen
               ? { opacity: 1, scale: 1, y: 0 }
-              : { opacity: 0, scale: 0.8, y: -20 }
+              : { opacity: 0, scale: 0.95, y: -10 }
           }
-          transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          style={{ 
+            pointerEvents: isOpen ? 'auto' : 'none',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1), 0 8px 40px rgba(0,0,0,0.08)'
+          }}
         >
-          <div className="space-y-2">
+          <div className="py-2">
             {sections.map((section, index) => (
               <motion.button
                 key={section.id}
                 onClick={() => scrollToSection(section.id)}
-                className={`w-full px-4 py-3 rounded-xl text-left transition-all ${
+                className={`w-full px-5 py-3 text-left text-sm font-medium transition-colors ${
                   currentSection === section.id
                     ? 'bg-black text-white'
-                    : 'text-gray-700 hover:bg-black/5'
+                    : 'text-gray-800 hover:bg-gray-50'
                 }`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={isOpen ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                transition={{ delay: index * 0.05 }}
-                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0 }}
+                animate={isOpen ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ delay: isOpen ? index * 0.03 : 0, duration: 0.2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <span className="mr-2">{section.icon}</span>
                 {section.name}
               </motion.button>
             ))}
