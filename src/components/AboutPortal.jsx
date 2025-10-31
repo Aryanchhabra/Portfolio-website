@@ -17,6 +17,7 @@ export default function AboutPortal() {
 
   return (
     <section
+      id="about"
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-20"
     >

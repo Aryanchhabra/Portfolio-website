@@ -13,18 +13,29 @@ import Cursor from './components/Cursor'
 function App() {
   const containerRef = useRef(null)
   const { scrollYProgress } = useScroll()
-  const [currentSection, setCurrentSection] = useState(0)
+  const [currentSection, setCurrentSection] = useState('home')
   
   // Track scroll position for section changes
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY
-      const windowHeight = window.innerHeight
-      const section = Math.floor(scrollPosition / windowHeight)
-      setCurrentSection(section)
+      const sections = ['home', 'about', 'experience', 'projects', 'skills', 'contact']
+      const scrollPosition = window.scrollY + window.innerHeight / 2
+      
+      // Find which section we're in
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setCurrentSection(sectionId)
+            break
+          }
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll() // Initial call
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 

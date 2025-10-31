@@ -136,7 +136,7 @@ export default function ExperienceTimeline() {
   const containerRef = useRef(null)
 
   return (
-    <section ref={containerRef} className="relative min-h-screen px-6 py-20">
+    <section id="experience" ref={containerRef} className="relative min-h-screen px-6 py-20">
       <div ref={ref} className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

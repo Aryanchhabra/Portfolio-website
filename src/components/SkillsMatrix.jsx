@@ -75,7 +75,7 @@ export default function SkillsMatrix() {
   const [ref, inView] = useInView({ threshold: 0.1, triggerOnce: true })
 
   return (
-    <section ref={ref} className="relative min-h-screen px-4 sm:px-6 py-16 sm:py-20">
+    <section id="skills" ref={ref} className="relative min-h-screen px-4 sm:px-6 py-16 sm:py-20">
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div

@@ -2,23 +2,26 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 const sections = [
-  { id: 0, name: 'Home', icon: '🏠' },
-  { id: 1, name: 'About', icon: '👋' },
-  { id: 2, name: 'Experience', icon: '💼' },
-  { id: 3, name: 'Projects', icon: '🚀' },
-  { id: 4, name: 'Skills', icon: '⚡' },
-  { id: 5, name: 'Contact', icon: '✉️' }
+  { id: 'home', name: 'Home', icon: '🏠' },
+  { id: 'about', name: 'About', icon: '👋' },
+  { id: 'experience', name: 'Experience', icon: '💼' },
+  { id: 'projects', name: 'Projects', icon: '🚀' },
+  { id: 'skills', name: 'Skills', icon: '⚡' },
+  { id: 'contact', name: 'Contact', icon: '✉️' }
 ]
 
 export default function Navigation({ currentSection }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const scrollToSection = (sectionId) => {
-    const windowHeight = window.innerHeight
-    window.scrollTo({
-      top: sectionId * windowHeight,
-      behavior: 'smooth'
-    })
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const offsetTop = element.offsetTop - 80 // 80px offset for better alignment
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      })
+    }
     setIsOpen(false)
   }
 
