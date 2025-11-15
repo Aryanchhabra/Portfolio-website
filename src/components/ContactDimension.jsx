@@ -13,7 +13,6 @@ export default function ContactDimension() {
   const [submitStatus, setSubmitStatus] = useState('') // 'success', 'error', or ''
 
   const socials = [
-    { name: 'Email', link: 'mailto:aryanchhabra13.ac@gmail.com' },
     { name: 'LinkedIn', link: 'https://linkedin.com/in/aryanchhabraai' },
     { name: 'GitHub', link: 'https://github.com/aryanchhabra' }
   ]
@@ -217,8 +216,8 @@ export default function ContactDimension() {
                   <motion.a
                         key={social.name}
                         href={social.link}
-                        target={social.link.startsWith('mailto:') ? '_self' : '_blank'}
-                        rel={social.link.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="relative p-5 rounded-xl bg-white border-2 border-gray-200 overflow-hidden group shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:border-black transition-colors"
                         initial={{ opacity: 0, x: -20 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
