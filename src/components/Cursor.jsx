@@ -21,9 +21,25 @@ export default function Cursor() {
     const updateCursorType = (e) => {
       const target = e.target
       
-      // Check if hovering over skill card
-      const skillCard = target.closest('[data-skill-card]')
-      setIsOnSkillCard(!!skillCard)
+      // Check if hovering over elements with black backgrounds
+      const computedStyle = window.getComputedStyle(target)
+      const bgColor = computedStyle.backgroundColor
+      const parentBgColor = target.parentElement ? window.getComputedStyle(target.parentElement).backgroundColor : ''
+      
+      // Check for black backgrounds (rgb(0, 0, 0) or very dark colors)
+      const isBlackBg = 
+        bgColor === 'rgb(0, 0, 0)' || 
+        bgColor === 'black' ||
+        bgColor.includes('rgba(0, 0, 0') ||
+        parentBgColor === 'rgb(0, 0, 0)' ||
+        parentBgColor === 'black' ||
+        parentBgColor.includes('rgba(0, 0, 0') ||
+        target.closest('[data-skill-card]') ||
+        target.closest('.bg-black') ||
+        target.closest('.from-black') ||
+        computedStyle.background.includes('black')
+      
+      setIsOnSkillCard(isBlackBg)
       
       setIsPointer(
         target.tagName === 'BUTTON' ||
