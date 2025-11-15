@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Cursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isPointer, setIsPointer] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
   const [isOnSkillCard, setIsOnSkillCard] = useState(false)
+  const [ripples, setRipples] = useState([])
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -33,71 +34,92 @@ export default function Cursor() {
       )
     }
 
+    const handleClick = (e) => {
+      const newRipple = {
+        id: Date.now(),
+        x: e.clientX,
+        y: e.clientY,
+        isOnDark: isOnSkillCard
+      }
+      setRipples(prev => [...prev, newRipple])
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id))
+      }, 600)
+    }
+
     window.addEventListener('mousemove', updateMousePosition)
     window.addEventListener('mouseover', updateCursorType)
+    window.addEventListener('mousedown', handleClick)
 
     return () => {
       window.removeEventListener('mousemove', updateMousePosition)
       window.removeEventListener('mouseover', updateCursorType)
+      window.removeEventListener('mousedown', handleClick)
     }
-  }, [])
+  }, [isOnSkillCard])
 
   if (!isVisible) return null
 
-  // Create trail effect with multiple delayed circles
-  const trailCount = 8
-  const trails = Array.from({ length: trailCount }, (_, i) => ({
-    delay: i * 0.02,
-    opacity: 1 - (i / trailCount) * 0.9,
-    scale: 1 - (i / trailCount) * 0.5,
-    size: 12 - i * 1
-  }))
-
   return (
     <>
-      {/* Trail effect */}
-      {trails.map((trail, i) => (
-        <motion.div
-          key={i}
-          className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9997] hidden md:block ${
-            isOnSkillCard ? 'bg-white' : 'bg-black'
-          }`}
-          style={{
-            width: trail.size,
-            height: trail.size,
-            opacity: trail.opacity * 0.3
-          }}
-          animate={{
-            x: mousePosition.x - trail.size / 2,
-            y: mousePosition.y - trail.size / 2,
-            scale: isPointer ? trail.scale * 1.2 : trail.scale
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 600 - i * 50,
-            damping: 30 + i * 2,
-            mass: 0.1 + i * 0.05
-          }}
-        />
-      ))}
-
-      {/* Main cursor dot */}
+      {/* Clean minimalist cursor */}
       <motion.div
-        className={`fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] hidden md:block ${
-          isOnSkillCard ? 'bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'bg-black shadow-[0_0_10px_rgba(0,0,0,0.3)]'
-        }`}
+        className={`fixed top-0 left-0 w-5 h-5 rounded-full pointer-events-none z-[9999] hidden md:block mix-blend-difference`}
+        style={{
+          border: '1.5px solid white'
+        }}
         animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
+          x: mousePosition.x - 10,
+          y: mousePosition.y - 10,
           scale: isPointer ? 1.5 : 1
         }}
         transition={{
-          type: "spring",
-          stiffness: 1200,
-          damping: 35,
-          mass: 0.1
+          x: { type: "spring", stiffness: 2000, damping: 50, mass: 0.1 },
+          y: { type: "spring", stiffness: 2000, damping: 50, mass: 0.1 },
+          scale: { type: "spring", stiffness: 400, damping: 25 }
         }}
       />
+
+      {/* Center dot */}
+      <motion.div
+        className="fixed top-0 left-0 w-1.5 h-1.5 rounded-full pointer-events-none z-[9999] hidden md:block bg-white mix-blend-difference"
+        animate={{
+          x: mousePosition.x - 3,
+          y: mousePosition.y - 3,
+          scale: isPointer ? 0 : 1
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 2000,
+          damping: 50,
+          mass: 0.05
+        }}
+      />
+
+      {/* Click ripples */}
+      <AnimatePresence>
+        {ripples.map(ripple => (
+          <motion.div
+            key={ripple.id}
+            className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9998] hidden md:block ${
+              ripple.isOnDark ? 'border-white' : 'border-black'
+            }`}
+            style={{
+              x: ripple.x - 20,
+              y: ripple.y - 20,
+              width: 40,
+              height: 40,
+              borderWidth: 2
+            }}
+            initial={{ scale: 0, opacity: 1 }}
+            animate={{ scale: 2, opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          />
+        ))}
+      </AnimatePresence>
     </>
   )
 }
