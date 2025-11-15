@@ -44,41 +44,58 @@ export default function Cursor() {
 
   if (!isVisible) return null
 
+  // Create trail effect with multiple delayed circles
+  const trailCount = 8
+  const trails = Array.from({ length: trailCount }, (_, i) => ({
+    delay: i * 0.02,
+    opacity: 1 - (i / trailCount) * 0.9,
+    scale: 1 - (i / trailCount) * 0.5,
+    size: 12 - i * 1
+  }))
+
   return (
     <>
-      {/* Main cursor - fast and responsive */}
-      <motion.div
-        className={`fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[9999] hidden md:block transition-colors duration-200 ${
-          isOnSkillCard ? 'bg-white' : 'bg-black'
-        }`}
-        animate={{
-          x: mousePosition.x - 6,
-          y: mousePosition.y - 6,
-          scale: isPointer ? 1.3 : 1
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 1000,
-          damping: 30,
-          mass: 0.2
-        }}
-      />
+      {/* Trail effect */}
+      {trails.map((trail, i) => (
+        <motion.div
+          key={i}
+          className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9997] hidden md:block ${
+            isOnSkillCard ? 'bg-white' : 'bg-black'
+          }`}
+          style={{
+            width: trail.size,
+            height: trail.size,
+            opacity: trail.opacity * 0.3
+          }}
+          animate={{
+            x: mousePosition.x - trail.size / 2,
+            y: mousePosition.y - trail.size / 2,
+            scale: isPointer ? trail.scale * 1.2 : trail.scale
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 600 - i * 50,
+            damping: 30 + i * 2,
+            mass: 0.1 + i * 0.05
+          }}
+        />
+      ))}
 
-      {/* Subtle outer ring - minimal lag */}
+      {/* Main cursor dot */}
       <motion.div
-        className={`fixed top-0 left-0 w-7 h-7 border rounded-full pointer-events-none z-[9998] hidden md:block transition-all duration-200 ${
-          isOnSkillCard ? 'border-white/30' : 'border-black/20'
+        className={`fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-[9999] hidden md:block ${
+          isOnSkillCard ? 'bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]' : 'bg-black shadow-[0_0_10px_rgba(0,0,0,0.3)]'
         }`}
         animate={{
-          x: mousePosition.x - 14,
-          y: mousePosition.y - 14,
+          x: mousePosition.x - 4,
+          y: mousePosition.y - 4,
           scale: isPointer ? 1.5 : 1
         }}
         transition={{
           type: "spring",
-          stiffness: 800,
+          stiffness: 1200,
           damping: 35,
-          mass: 0.3
+          mass: 0.1
         }}
       />
     </>
