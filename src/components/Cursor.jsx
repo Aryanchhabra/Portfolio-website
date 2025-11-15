@@ -46,39 +46,39 @@ export default function Cursor() {
 
   return (
     <>
-      {/* Main cursor */}
+      {/* Main cursor - fast and responsive */}
       <motion.div
-        className={`fixed top-0 left-0 w-4 h-4 rounded-full pointer-events-none z-[9999] hidden md:block transition-colors duration-300 ${
+        className={`fixed top-0 left-0 w-3 h-3 rounded-full pointer-events-none z-[9999] hidden md:block transition-colors duration-200 ${
           isOnSkillCard ? 'bg-white' : 'bg-black'
         }`}
         animate={{
-          x: mousePosition.x - 8,
-          y: mousePosition.y - 8,
+          x: mousePosition.x - 6,
+          y: mousePosition.y - 6,
+          scale: isPointer ? 1.3 : 1
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 1000,
+          damping: 30,
+          mass: 0.2
+        }}
+      />
+
+      {/* Subtle outer ring - minimal lag */}
+      <motion.div
+        className={`fixed top-0 left-0 w-7 h-7 border rounded-full pointer-events-none z-[9998] hidden md:block transition-all duration-200 ${
+          isOnSkillCard ? 'border-white/30' : 'border-black/20'
+        }`}
+        animate={{
+          x: mousePosition.x - 14,
+          y: mousePosition.y - 14,
           scale: isPointer ? 1.5 : 1
         }}
         transition={{
           type: "spring",
-          stiffness: 500,
-          damping: 28,
-          mass: 0.5
-        }}
-      />
-
-      {/* Cursor trail */}
-      <motion.div
-        className={`fixed top-0 left-0 w-8 h-8 border-2 rounded-full pointer-events-none z-[9998] hidden md:block transition-colors duration-300 ${
-          isOnSkillCard ? 'border-white/40' : 'border-black/30'
-        }`}
-        animate={{
-          x: mousePosition.x - 16,
-          y: mousePosition.y - 16,
-          scale: isPointer ? 1.8 : 1
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 150,
-          damping: 20,
-          mass: 0.8
+          stiffness: 800,
+          damping: 35,
+          mass: 0.3
         }}
       />
     </>
