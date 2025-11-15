@@ -10,9 +10,24 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+html {
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+html * {
+  cursor: none !important;
+}
+
+@media (max-width: 768px) {
   html {
-    scroll-behavior: smooth;
+    cursor: auto;
   }
+  
+  html * {
+    cursor: auto !important;
+  }
+}
   
   body {
     @apply overflow-x-hidden;

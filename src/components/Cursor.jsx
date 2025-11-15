@@ -5,6 +5,7 @@ export default function Cursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isPointer, setIsPointer] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [isOnSkillCard, setIsOnSkillCard] = useState(false)
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -19,6 +20,11 @@ export default function Cursor() {
 
     const updateCursorType = (e) => {
       const target = e.target
+      
+      // Check if hovering over skill card
+      const skillCard = target.closest('[data-skill-card]')
+      setIsOnSkillCard(!!skillCard)
+      
       setIsPointer(
         target.tagName === 'BUTTON' ||
         target.tagName === 'A' ||
@@ -42,7 +48,9 @@ export default function Cursor() {
     <>
       {/* Main cursor */}
       <motion.div
-        className="fixed top-0 left-0 w-4 h-4 bg-black rounded-full pointer-events-none z-[9999] hidden md:block"
+        className={`fixed top-0 left-0 w-4 h-4 rounded-full pointer-events-none z-[9999] hidden md:block transition-colors duration-300 ${
+          isOnSkillCard ? 'bg-white' : 'bg-black'
+        }`}
         animate={{
           x: mousePosition.x - 8,
           y: mousePosition.y - 8,
@@ -58,7 +66,9 @@ export default function Cursor() {
 
       {/* Cursor trail */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border-2 border-black/30 rounded-full pointer-events-none z-[9998] hidden md:block"
+        className={`fixed top-0 left-0 w-8 h-8 border-2 rounded-full pointer-events-none z-[9998] hidden md:block transition-colors duration-300 ${
+          isOnSkillCard ? 'border-white/40' : 'border-black/30'
+        }`}
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
